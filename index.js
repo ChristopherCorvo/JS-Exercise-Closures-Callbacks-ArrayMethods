@@ -23,14 +23,27 @@ function processFirstItem(stringList, callback) {
 
 ///// M V P ///////
 
-/* Task 1: `counterMaker`
+/* Task 1: `counterMaker` ********Done**********
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * Answer: Counter 1 employs a closure to encapsulate a counter variable and a function counter(). In this case you have a bundle of code that can not be touched
+ * from outside its scope. The let count variable is scoped to the counterMaker() so nothing can reasign its value which if happend would break the counter() function. 
+ * Counter two involves a count variable that is globally scoped followed by a callback function which employs the count variable. The big problem with this
+ * example is that the count variable value could be reasigned and manipulated by other functions. If the count variable was changed then the counter2() would not
+ * work correctly. 
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * Answer: Counter1 employs a closure to encapsulate the counter(). You can see that a closure is employed by seeing that there is a function nested within
+ * another function. This is a sign that there is a closure being employed. 
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * 
+ * Answer: Counter 1 would be a preferable modle in most cases because the data it contains is protected. The count variable can not be reasigned so the the return
+ * value when this function is called will not be damaged. Counter 2 might be preferable if you wanted the counter2() callback function to be interacted with by 
+ * multiple higherorder functions or if the value stored in the count variable was needed by other functions or variables. Overall Counter1 is better code. 
  *
 */
 
@@ -52,19 +65,20 @@ function counter2() {
 }
 
 
-/* Task 2: inning() 
+/* Task 2: inning() **** Done *****
 
-Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
+Write a function called `inning` that generates a random number of points that a team scored in an inning. 
+This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
-}
+function inning(){
+  return Math.floor(Math.random() * (2 - 0 + 1) + 0); // This trick to get a random number that is inclusive on both the min and max is from mdn
+}                                                     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+console.log(inning());
 
 /* Task 3: finalScore()
 
-Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
+Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number 
+of innings and and returns the final score of the game in the form of an object.
 
 For example, 
 
@@ -76,11 +90,25 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(inning,numberOfInnings){
+  let counter = 0;
+  let finalScoreRecord = {Home: 0, Away:0};
 
-  /*Code Here*/
+  for(let i = 0; i < numberOfInnings; i++){
+    counter = counter + inning;
+    finalScoreRecord.Home = finalScoreRecord.Home + counter;
+  }
 
+  for(let i = 0; i < numberOfInnings; i++){
+    counter = counter + inning;
+    finalScoreRecord.Away = finalScoreRecord.Away + counter;
+  }
+
+  return finalScoreRecord;
+  
 }
+
+console.log(finalScore(inning(), 4));
 
 /* Task 4: 
 
@@ -104,8 +132,18 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(counterAway,counterHome,numberOfInnings) {  // scoreboard results for each inning
+      
+  if(numberOfInnings === 1){
+    return `${numberOfInnings}st inning: ${counterAway} - ${counterHome}`;
+  } else if (numberOfInnings === 2){
+    return `${numberOfInnings}nd inning: ${counterAway} - ${counterHome}`;
+  } else if(numberOfInnings === 3){
+    return `${numberOfInnings}rd inning: ${counterAway} - ${counterHome}`;
+  } else {
+    return `${numberOfInnings}th inning: ${counterAway} - ${counterHome}`;
+  }
+  
 }
 
 
