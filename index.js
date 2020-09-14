@@ -28,9 +28,22 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * Answer: Counter 1 employs a closure to encapsulate a counter variable and a function counter(). In this case you have a bundle of code that can not be touched
+ * from outside its scope. The let count variable is scoped to the counterMaker() so nothing can reasign its value which if happend would break the counter() function. 
+ * Counter two involves a count variable that is globally scoped followed by a callback function which employs the count variable. The big problem with this
+ * example is that the count variable value could be reasigned and manipulated by other functions. If the count variable was changed then the counter2() would not
+ * work correctly. 
+ * 
  * 2. Which of the two uses a closure? How can you tell?
  * 
+ * Answer: Counter1 employs a closure to encapsulate the counter(). You can see that a closure is employed by seeing that there is a function nested within
+ * another function. This is a sign that there is a closure being employed. 
+ * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * 
+ * Answer: Counter 1 would be a preferable modle in most cases because the data it contains is protected. The count variable can not be reasigned so the the return
+ * value when this function is called will not be damaged. Counter 2 might be preferable if you wanted the counter2() callback function to be interacted with by 
+ * multiple higherorder functions or if the value stored in the count variable was needed by other functions or variables. Overall Counter1 is better code. 
  *
 */
 
