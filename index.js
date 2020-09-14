@@ -23,7 +23,7 @@ function processFirstItem(stringList, callback) {
 
 ///// M V P ///////
 
-/* Task 1: `counterMaker`
+/* Task 1: `counterMaker` ********Done**********
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
@@ -65,19 +65,20 @@ function counter2() {
 }
 
 
-/* Task 2: inning() 
+/* Task 2: inning() **** Done *****
 
-Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
+Write a function called `inning` that generates a random number of points that a team scored in an inning. 
+This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
-}
+function inning(){
+  return Math.floor(Math.random() * (2 - 0 + 1) + 0); // This trick to get a random number that is inclusive on both the min and max is from mdn
+}                                                     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+console.log(inning());
 
 /* Task 3: finalScore()
 
-Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
+Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number 
+of innings and and returns the final score of the game in the form of an object.
 
 For example, 
 
@@ -89,11 +90,25 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(inning,numberOfInnings){
+  let counter = 0;
+  let finalScoreRecord = {Home: 0, Away:0};
 
-  /*Code Here*/
+  for(let i = 0; i < numberOfInnings; i++){
+    counter = counter + inning;
+    finalScoreRecord.Home = finalScoreRecord.Home + counter;
+  }
 
+  for(let i = 0; i < numberOfInnings; i++){
+    counter = counter + inning;
+    finalScoreRecord.Away = finalScoreRecord.Away + counter;
+  }
+
+  return finalScoreRecord;
+  
 }
+
+console.log(finalScore(inning(), 4));
 
 /* Task 4: 
 
