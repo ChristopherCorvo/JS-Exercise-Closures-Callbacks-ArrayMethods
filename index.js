@@ -132,8 +132,10 @@ and returns the score at each pont in the game, like so:
 
 Final Score: awayTeam - homeTeam */
 
-function scoreboard(counterAway,counterHome,numberOfInnings) {  // scoreboard results for each inning
-      
+
+
+function scoreboard(getInningScore, inning, numberOfInnings) {  // scoreboard results for each inning
+  
   if(numberOfInnings === 1){
     return `${numberOfInnings}st inning: ${counterAway} - ${counterHome}`;
   } else if (numberOfInnings === 2){
