@@ -73,7 +73,7 @@ This should be a whole number between 0 and 2. */
 function inning(){
   return Math.floor(Math.random() * (2 - 0 + 1) + 0); // This trick to get a random number that is inclusive on both the min and max is from mdn
 }                                                     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-console.log(inning());
+
 
 /* Task 3: finalScore()
 
@@ -90,27 +90,31 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(inning,numberOfInnings){
-  let counter = 0;
-  let finalScoreRecord = {Home: 0, Away:0};
+function finalScore(inning,numberOfInnings){ // returns the final game score for Home and Away
+  let counterHome = 0;
+  let counterAway = 0;
+  let finalScoreRecord = {Home:0, Away:0};
 
-  for(let i = 0; i < numberOfInnings; i++){
-    counter = counter + inning;
-    finalScoreRecord.Home = finalScoreRecord.Home + counter;
-  }
+    for(let i = 0; i < numberOfInnings; i++){
+      counterHome = counterHome + inning;
+      finalScoreRecord.Home = finalScoreRecord.Home + counterHome;
+      console.log(counterHome);
+    }
 
-  for(let i = 0; i < numberOfInnings; i++){
-    counter = counter + inning;
-    finalScoreRecord.Away = finalScoreRecord.Away + counter;
-  }
-
-  return finalScoreRecord;
+    for(let i = 0; i < numberOfInnings; i++){
+      counterAway = counterAway + inning;
+      finalScoreRecord.Away = finalScoreRecord.Away + counterAway;
+      console.log(counterAway);
+    }
+    //console.log(scoreboard(counterAway,counterHome,i+1));
+    
   
+  return finalScoreRecord;
 }
 
-console.log(finalScore(inning(), 4));
+console.log(finalScore(inning(), 4))
 
-/* Task 4: 
+/* Task 4: *****************done*******
 
 Create a function called `scoreboard` that accepts the following parameters: 
 
@@ -134,18 +138,44 @@ Final Score: awayTeam - homeTeam */
 
 
 
-function scoreboard(getInningScore, inning, numberOfInnings) {  // scoreboard results for each inning
+
+function gettingInningScore(){
+  let inningScore = {Home: 0, Away:0}
+
+  inningScore.Home = inning();
+  inningScore.Away = inning();
+
+  return inningScore;
+}
+
+function scoreboard(numberOfInnings) {  // scoreboard results for each inning
   
-  if(numberOfInnings === 1){
-    return `${numberOfInnings}st inning: ${counterAway} - ${counterHome}`;
-  } else if (numberOfInnings === 2){
-    return `${numberOfInnings}nd inning: ${counterAway} - ${counterHome}`;
-  } else if(numberOfInnings === 3){
-    return `${numberOfInnings}rd inning: ${counterAway} - ${counterHome}`;
-  } else {
-    return `${numberOfInnings}th inning: ${counterAway} - ${counterHome}`;
-  }
+  let totalScoreHome = 0;
+  let totalScoreAway = 0;
+  
+  for (let i = 1; i < numberOfInnings + 1; i++) {
+
+    let scoreHomeInning = gettingInningScore().Home;
+    let scoreAwayInning = gettingInningScore().Away;
+
+    totalScoreHome = totalScoreHome + scoreHomeInning;
+    totalScoreAway = totalScoreAway + scoreAwayInning;
+
+    if(i === 1){
+      console.log(`${i}st inning: ${scoreAwayInning} - ${scoreHomeInning}`);
+    } else if (i === 2){
+      console.log(`${i}nd inning: ${scoreAwayInning} - ${scoreHomeInning}`);
+    } else if(i === 3){
+      console.log(`${i}rd inning: ${scoreAwayInning} - ${scoreHomeInning}`);
+    } else {
+      console.log(`${i}th inning: ${scoreAwayInning} - ${scoreHomeInning}`);
+    }
   
 }
 
+return `Final Score: ${totalScoreAway} - ${totalScoreHome}`
 
+}
+
+
+console.log(scoreboard(4));
