@@ -73,7 +73,7 @@ This should be a whole number between 0 and 2. */
 function inning(){
   return Math.floor(Math.random() * (2 - 0 + 1) + 0); // This trick to get a random number that is inclusive on both the min and max is from mdn
 }                                                     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-
+console.log(inning())
 
 /* Task 3: finalScore()
 
@@ -96,23 +96,18 @@ function finalScore(inning,numberOfInnings){ // returns the final game score for
   let finalScoreRecord = {Home:0, Away:0};
 
     for(let i = 0; i < numberOfInnings; i++){
-      counterHome = counterHome + inning;
+      counterHome = counterHome + inning();
       finalScoreRecord.Home = finalScoreRecord.Home + counterHome;
-      console.log(counterHome);
     }
 
     for(let i = 0; i < numberOfInnings; i++){
-      counterAway = counterAway + inning;
+      counterAway = counterAway + inning();
       finalScoreRecord.Away = finalScoreRecord.Away + counterAway;
-      console.log(counterAway);
     }
-    //console.log(scoreboard(counterAway,counterHome,i+1));
-    
-  
   return finalScoreRecord;
 }
 
-console.log(finalScore(inning(), 4))
+console.log(finalScore(inning, 4))
 
 /* Task 4: *****************done*******
 
